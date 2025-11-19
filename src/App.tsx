@@ -1,4 +1,4 @@
-import { Analytics } from '@vercel/analytics/next';
+import { Analytics } from '@vercel/analytics/react';
 import { Bug } from 'lucide-react';
 
 import FileEditorBlp from './Blp.tsx';
