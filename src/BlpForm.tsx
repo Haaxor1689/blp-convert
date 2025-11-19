@@ -4,6 +4,7 @@ import { Save } from 'lucide-react';
 
 import Dialog, { DialogClose } from './components/Dialog.tsx';
 import { Checkbox } from './components/form/Checkbox.tsx';
+import Input from './components/form/Input.tsx';
 import Radio from './components/form/Radio.tsx';
 import { InfoItem } from './components/InfoPanelItems.tsx';
 import TextButton from './components/TextButton.tsx';
@@ -85,12 +86,29 @@ export const downloadBlob = (blob: Blob, title: string) => {
 	link.click();
 };
 
+const isPowerOfTwo = (x: number) => {
+	if (x <= 0) return false;
+	const log2 = Math.log2(x);
+	return Number.isInteger(log2);
+};
+
 type Props = { name: string; info: Blp };
 
 const BlpForm = ({ name, info }: Props) => {
+	const [loading, setLoading] = useState(false);
+
+	const [fileName, setFileName] = useState(name.replace('.png', '.blp'));
 	const [compression, setCompression] = useState(toCompression(info));
 	const [alpha, setAlpha] = useState(info.alphaSize);
 	const [mipMaps, setMipMaps] = useState(info.mipMaps === 'MIPS_GENERATED');
+
+	const error =
+		compression?.startsWith('DXT') &&
+		(!isPowerOfTwo(info.width) || !isPowerOfTwo(info.height))
+			? 'Width and Height must be power of two for DXT compression.'
+			: !fileName
+				? 'Please provide a file name.'
+				: undefined;
 
 	return (
 		<Dialog
@@ -102,25 +120,36 @@ const BlpForm = ({ name, info }: Props) => {
 				</TextButton>
 			}
 			actions={[
+				error ? (
+					<span key="error" className="text-red text-sm">
+						{error}
+					</span>
+				) : null,
 				<DialogClose key="save">
 					<TextButton
 						icon={Save}
 						iconSize={20}
 						onClick={async () => {
-							const buffer = await Blp.toBuffer({
-								...info,
-								...fromCompression(compression!, alpha),
-								mipMaps: mipMaps ? 'MIPS_GENERATED' : 'MIPS_NONE'
-							});
+							setLoading(true);
+							try {
+								const buffer = await Blp.toBuffer({
+									...info,
+									...fromCompression(compression!, alpha),
+									mipMaps: mipMaps ? 'MIPS_GENERATED' : 'MIPS_NONE'
+								});
 
-							downloadBlob(
-								new Blob([new Uint8Array(buffer)], {
-									type: 'application/octet-stream'
-								}),
-								name?.endsWith('.blp') ? name : `${name ?? 'texture'}.blp`
-							);
+								downloadBlob(
+									new Blob([new Uint8Array(buffer)], {
+										type: 'application/octet-stream'
+									}),
+									fileName
+								);
+							} finally {
+								setLoading(false);
+							}
 						}}
-						disabled={!compression}
+						disabled={!compression || !!error}
+						loading={loading}
 					>
 						Save
 					</TextButton>
@@ -130,6 +159,14 @@ const BlpForm = ({ name, info }: Props) => {
 			<p className="pb-2">
 				You can change these BLP compression options before saving:
 			</p>
+			<InfoItem title="Name">
+				<Input
+					value={fileName}
+					onChange={e => setFileName(e.currentTarget.value)}
+					error={!fileName}
+					className="grow"
+				/>
+			</InfoItem>
 			<InfoItem title="Compression">
 				<Radio
 					value={compression}
