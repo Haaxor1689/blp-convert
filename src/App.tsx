@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/next';
 import { Bug } from 'lucide-react';
 
 import FileEditorBlp from './Blp.tsx';
@@ -20,6 +21,7 @@ const App = () => (
 				Report Bug
 			</TextButton>
 		</footer>
+		<Analytics />
 	</div>
 );
 
