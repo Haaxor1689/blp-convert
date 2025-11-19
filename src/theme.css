@@ -1,0 +1,231 @@
+@import 'tailwindcss';
+
+@font-face {
+	font-family: Din;
+	src: url('/src/assets/DINPro-Regular.otf') format('opentype');
+}
+
+@font-face {
+	font-family: Fontin;
+	src: url('/src/assets/FontinSans-Regular.otf') format('opentype');
+}
+
+@theme {
+	--color-*: initial;
+	--color-inherit: inherit;
+	--color-current: currentColor;
+	--color-white: #fff;
+	--color-yellow: #f1c22d;
+	--color-pink: #ff7757;
+	--color-orange: #fb8a4c;
+	--color-brown: #764502;
+	--color-red: #ee3333;
+	--color-dark-brown: #291105;
+	--color-dark-gray: #0f0d0c;
+	--color-darker-gray: #181412;
+	--color-dark-purple: #271f30;
+	--color-purple: #403561;
+	--color-gray: #5e5b55;
+	--color-light-gray: #9e9783;
+	--color-blue-gray: #929391;
+	--color-warm-green: #c5cb63;
+	--color-green: #8dd958;
+	--color-dark-green: #358d3e;
+	--color-tooltip-yellow: #ffd100;
+	--color-tooltip-green: #1eff00;
+	--color-tooltip-gray: #9d9d9d;
+}
+
+@theme inline {
+	--font-sans: Din;
+	--font-serif: Fontin;
+}
+
+@custom-variant hocus {
+	&:hover,
+	&:focus {
+		@slot;
+	}
+}
+
+@custom-variant hocus-within {
+	&:hover,
+	&:focus-within {
+		@slot;
+	}
+}
+
+@custom-variant dev-hidden {
+	&:is(:where(.group):is(.tw-dev) *) {
+		@slot;
+	}
+}
+
+@utility h1 {
+	@apply font-serif;
+	font-style: normal;
+	font-weight: 700;
+	font-size: 78px;
+	line-height: 76px;
+	letter-spacing: 0.03em;
+	text-transform: uppercase;
+}
+
+@utility h2 {
+	@apply font-serif;
+	font-weight: 700;
+	font-size: 54px;
+	line-height: 58px;
+	letter-spacing: 0.03em;
+	text-transform: uppercase;
+}
+
+@utility h3 {
+	@apply font-serif;
+	font-weight: 400;
+	font-size: 32px;
+	line-height: 38px;
+	letter-spacing: 0.03em;
+	text-transform: uppercase;
+}
+
+@utility h4 {
+	@apply font-serif;
+	font-weight: 400;
+	font-size: 20px;
+	line-height: 26px;
+	letter-spacing: 0.03em;
+	text-transform: uppercase;
+}
+
+@utility tw-color {
+	display: inline;
+	@apply from-yellow to-pink bg-linear-to-t;
+	-webkit-box-decoration-break: clone;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+@utility tw-surface-* {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	padding: calc(var(--spacing) * --value(integer, [integer]));
+	gap: calc(var(--spacing) * --value(integer, [integer]));
+	box-shadow: rgb(0 0 0 / 45%) 0px 25px 20px -20px;
+	@apply border-blue-gray/20 bg-dark-gray/70 border;
+
+	& hr {
+		margin-left: calc(-1 * var(--spacing) * --value(integer, [integer]));
+		margin-right: calc(-1 * var(--spacing) * --value(integer, [integer]));
+		@apply text-blue-gray/20;
+	}
+}
+
+@utility tw-highlight {
+	@apply text-green drop-shadow-[0px_0px_25px_white];
+}
+
+@utility tw-table-row {
+	@apply col-start-1 -col-end-1 grid grid-cols-subgrid items-center;
+	& > * {
+		@apply px-2 py-1 whitespace-nowrap;
+	}
+}
+
+@utility tw-table-body {
+	@apply col-start-1 -col-end-1 row-start-2 -row-end-1 grid grid-cols-subgrid grid-rows-subgrid;
+}
+
+@layer components {
+	/* Default text styles */
+	:not(svg, svg *) {
+		@apply font-sans;
+		color: white;
+		font-style: normal;
+		font-weight: 400;
+		font-size: 16px;
+		line-height: 26px;
+		min-width: 0;
+		min-height: 0;
+	}
+
+	h1 {
+		@apply h1;
+	}
+
+	h2 {
+		@apply h2;
+	}
+
+	h3 {
+		@apply h3;
+	}
+
+	h4 {
+		@apply h4;
+	}
+
+	*:focus {
+		outline: none;
+	}
+
+	input {
+		&:-webkit-autofill,
+		&:-webkit-autofill:hover,
+		&:-webkit-autofill:focus,
+		&:-webkit-autofill:active {
+			-webkit-text-fill-color: white;
+			-webkit-box-shadow: 0 0 0 30px #0e0c0b inset !important;
+		}
+	}
+
+	input::-webkit-outer-spin-button,
+	input::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+		appearance: none;
+		margin: 0;
+	}
+
+	input[type='number'] {
+		-moz-appearance: textfield;
+		appearance: textfield;
+	}
+
+	::-webkit-scrollbar {
+		@apply h-2 w-2;
+	}
+
+	::-webkit-scrollbar-track {
+		background: transparent;
+	}
+
+	::-webkit-scrollbar-thumb {
+		display: none;
+		@apply bg-gray/40;
+
+		:hover& {
+			display: initial;
+		}
+
+		&:hover {
+			@apply bg-gray/80;
+		}
+	}
+
+	::-webkit-scrollbar-corner {
+		display: none;
+	}
+
+	.bg-checkers {
+		background: conic-gradient(
+			var(--color-blue-gray) 90deg,
+			var(--color-gray) 90deg 180deg,
+			var(--color-blue-gray) 180deg 270deg,
+			var(--color-gray) 270deg
+		);
+		background-repeat: repeat;
+		background-size: 20px 20px;
+		background-position: center;
+	}
+}
