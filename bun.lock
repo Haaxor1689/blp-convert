@@ -10,7 +10,7 @@
         "@tailwindcss/vite": "^4.1.17",
         "@vercel/analytics": "^1.5.0",
         "classnames": "^2.5.1",
-        "haax-blp": "^1.1.0",
+        "haax-blp": "^1.1.1",
         "jimp": "^1.6.0",
         "lucide-react": "^0.554.0",
         "react": "^19.2.0",
@@ -625,7 +625,7 @@
 
     "graphemer": ["graphemer@1.4.0", "", {}, "sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag=="],
 
-    "haax-blp": ["haax-blp@1.1.0", "", { "dependencies": { "@haaxor1689/nil": "^1.0.3", "dxt-js": "^0.0.3", "rgbquant": "^1.1.2" }, "optionalDependencies": { "jimp": "^1.6.0", "sharp": "^0.34.5" } }, "sha512-PtwN7jLDJPQF3m6pmQfqnC9fBmde7Gj/9trJYx0KOryladVFT3KxztZ68cprZ2TsDbkIc0q/MEJMHIK/oj50mg=="],
+    "haax-blp": ["haax-blp@1.1.1", "", { "dependencies": { "@haaxor1689/nil": "^1.0.3", "dxt-js": "^0.0.3", "rgbquant": "^1.1.2" }, "optionalDependencies": { "jimp": "^1.6.0", "sharp": "^0.34.5" } }, "sha512-ACn1z9Haw4btt7hxaLWJtn2JLYsSIP0M27p06f+NZkBv6dK2KZGCfmGDgActTuiPwzFfdTAPeD0goXs6LT2J1w=="],
 
     "has-bigints": ["has-bigints@1.1.0", "", {}, "sha512-R3pbpkcIqv2Pm3dUwgjclDRVmWpTJW2DcMzcIhEXEx1oh/CEMObMm3KLmRJOdvhM7o4uQBnwr8pzRK2sJWIqfg=="],
 
