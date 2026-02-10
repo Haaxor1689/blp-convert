@@ -115,7 +115,7 @@ const BlpForm = ({ name, info }: Props) => {
 			title="Save as"
 			description="Configure the BLP options before saving."
 			trigger={
-				<TextButton icon={Save} iconSize={20} type="submit">
+				<TextButton icon={Save} iconSize={20} type="asChild">
 					To BLP
 				</TextButton>
 			}

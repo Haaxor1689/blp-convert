@@ -56,6 +56,7 @@ const TextButton = ({
 	const Component = props.type === 'link' ? 'a' : 'button';
 	return (
 		<Component
+			{...props}
 			title={title ?? (typeof children === 'string' ? children : undefined)}
 			tabIndex={!!loading || !!disabled ? -1 : tabIndex}
 			className={cls(

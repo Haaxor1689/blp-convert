@@ -74,9 +74,16 @@ const FileEditorBlp = () => {
 	return (
 		<>
 			<div className="flex justify-between gap-2 pt-2">
-				<h3 className="tw-color overflow-hidden p-2 text-ellipsis whitespace-nowrap">
-					{file?.name ?? 'Blp convert'}
-				</h3>
+				<div className="flex items-center gap-2 p-2">
+					<img
+						src="/icon.png"
+						alt="Blp convert icon"
+						className="h-8 shrink-0"
+					/>
+					<h3 className="tw-color overflow-hidden text-ellipsis whitespace-nowrap">
+						{file?.name ?? 'Blp convert'}
+					</h3>
+				</div>
 				{file?.name && info && (
 					<div className="flex shrink-0 gap-2">
 						<TextButton

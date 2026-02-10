@@ -8,7 +8,6 @@ const Footer = () => (
 		<TextButton
 			type="link"
 			icon={() => (
-				// eslint-disable-next-line @next/next/no-img-element
 				<img
 					src="https://storage.ko-fi.com/cdn/logomarkLogo.png"
 					alt="Ko-fi logo"
