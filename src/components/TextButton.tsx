@@ -31,7 +31,8 @@ type Props = {
 	| {
 			href: string;
 			type: 'link';
-			onClick?: MouseEventHandler<HTMLButtonElement>;
+			onClick?: MouseEventHandler<HTMLAnchorElement>;
+			external?: boolean;
 	  }
 ) &
 	(
@@ -55,7 +56,6 @@ const TextButton = ({
 	const Component = props.type === 'link' ? 'a' : 'button';
 	return (
 		<Component
-			{...props}
 			title={title ?? (typeof children === 'string' ? children : undefined)}
 			tabIndex={!!loading || !!disabled ? -1 : tabIndex}
 			className={cls(
@@ -68,7 +68,12 @@ const TextButton = ({
 				}
 			)}
 			{...((props.type === 'link'
-				? { href: props.href, onClick: props.onClick }
+				? {
+						href: props.href,
+						onClick: props.onClick,
+						target: props.external ? '_blank' : undefined,
+						rel: props.external ? 'noopener noreferrer' : undefined
+					}
 				: props.type === 'submit'
 					? { form: props.form }
 					: props.type === 'asChild'
